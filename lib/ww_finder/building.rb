@@ -7,9 +7,11 @@ class WWFinder::Building
         @name = name 
         @address = address 
         @url = url
+        save
     end
 
     def self.all 
+        WWFinder::Scraper.scrape_buildings if @@all.empty?
         @@all 
     end
 

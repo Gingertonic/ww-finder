@@ -11,6 +11,7 @@ class WWFinder::CLI
         puts "Hai! Hit enter to continue"
     end
 
+
     def instructions 
         puts "Enter the option number to see more details"
     end
@@ -25,6 +26,7 @@ class WWFinder::CLI
 
     def show_buildings
         puts "Here lie buildings"
+        binding.pry
     end
 
     def goodbye 

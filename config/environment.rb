@@ -1,5 +1,6 @@
 require 'pry'
 require 'nokogiri'
+require 'open-uri'
 require 'colorize'
 
 require_relative "../lib/ww_finder/version"
