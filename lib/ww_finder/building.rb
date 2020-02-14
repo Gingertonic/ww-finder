@@ -1,5 +1,6 @@
 class WWFinder::Building 
-    attr_accessor :name, :address, :url, :id
+    attr_reader :name, :address, :url, :id
+    attr_accessor :info
 
     @@all = []
 
@@ -16,7 +17,7 @@ class WWFinder::Building
     end 
 
     def prepare_details
-        WWFinder::Scraper.scrape_building_details(self)
+        WWFinder::Scraper.scrape_building_details(self) if !info
     end
 
     def self.all 

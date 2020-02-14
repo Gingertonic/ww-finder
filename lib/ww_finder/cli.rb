@@ -19,7 +19,6 @@ class WWFinder::CLI
 
     def app_loop 
         while input != "exit" do
-            # get_user_selection
             show_buildings
         end
     end
@@ -34,8 +33,10 @@ class WWFinder::CLI
 
     def show_building
         building = WWFinder::Building.all[user_num_input]
-        puts "you chose building #{building.name}"
         building.prepare_details
+        puts "\n#{building.name}".colorize(:magenta)
+        puts building.info
+        puts building.address.colorize(:light_magenta)
         what_next
     end
 
@@ -48,7 +49,7 @@ class WWFinder::CLI
     end
 
     def what_next
-        puts "If you are done, type 'exit', otherwise hit enter to continue"
+        puts "\nIf you are done, type 'exit', otherwise hit enter to continue\n"
         get_user_selection
     end 
 
