@@ -25,8 +25,9 @@ class WWFinder::CLI
     end
 
     def show_buildings
-        puts "Here lie buildings"
-        binding.pry
+        WWFinder::Building.all.each do | building |
+            puts "#{building.id}: #{building.address}"
+        end 
     end
 
     def goodbye 

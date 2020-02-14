@@ -1,5 +1,5 @@
 class WWFinder::Building 
-    attr_accessor :name, :address, :url
+    attr_accessor :name, :address, :url, :id
 
     @@all = []
 
@@ -7,8 +7,13 @@ class WWFinder::Building
         @name = name 
         @address = address 
         @url = url
+        set_id
         save
     end
+
+    def set_id 
+        @id = @@all.count + 1
+    end 
 
     def self.all 
         WWFinder::Scraper.scrape_buildings if @@all.empty?
