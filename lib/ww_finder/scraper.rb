@@ -11,4 +11,12 @@ class WWFinder::Scraper
         end
     end
 
+    def self.scrape_building_details(building)
+        doc = Nokogiri::HTML(open("https://www.wework.com#{building.url}"))
+        # div.building-info p.ray-text--body
+        # section#transportation ul li.transportation
+        # section#section-amenities ul.amenities li.amenity
+        # section#section-events ul.events li.event
+    end
+
 end

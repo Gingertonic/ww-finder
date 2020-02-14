@@ -15,6 +15,10 @@ class WWFinder::Building
         @id = @@all.count + 1
     end 
 
+    def prepare_details
+        WWFinder::Scraper.scrape_building_details(self)
+    end
+
     def self.all 
         WWFinder::Scraper.scrape_buildings if @@all.empty?
         @@all 

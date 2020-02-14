@@ -35,6 +35,7 @@ class WWFinder::CLI
     def show_building
         building = WWFinder::Building.all[user_num_input]
         puts "you chose building #{building.name}"
+        building.prepare_details
         what_next
     end
 
