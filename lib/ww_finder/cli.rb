@@ -9,17 +9,17 @@ class WWFinder::CLI
 
     def welcome 
         puts "Hai! Hit enter to continue"
+        gets
     end
 
 
     def instructions 
-        puts "Enter the option number to see more details"
+        puts "\nEnter the option number to see more details"
     end
 
     def app_loop 
         while input != "exit" do
-            @input = gets.strip
-            instructions
+            # get_user_selection
             show_buildings
         end
     end
@@ -27,7 +27,36 @@ class WWFinder::CLI
     def show_buildings
         WWFinder::Building.all.each.with_index(1) do | building, idx |
             puts "#{idx}: #{building.address}"
-        end 
+        end
+        get_user_selection
+        show_building if valid_input(WWFinder::Building.all)
+    end
+
+    def show_building
+        building = WWFinder::Building.all[user_num_input]
+        puts "you chose building #{building.name}"
+        what_next
+    end
+
+    def valid_input(data)
+        user_num_input > 0 && user_num_input <= data.length
+    end
+
+    def error 
+        puts "Oops, that's not a valid option"
+    end
+
+    def what_next
+        puts "If you are done, type 'exit', otherwise hit enter to continue"
+        get_user_selection
+    end 
+
+    def get_user_selection
+        @input = gets.strip
+    end
+
+    def user_num_input
+        input.to_i - 1
     end
 
     def goodbye 
