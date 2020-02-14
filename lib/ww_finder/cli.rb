@@ -25,8 +25,8 @@ class WWFinder::CLI
     end
 
     def show_buildings
-        WWFinder::Building.all.each do | building |
-            puts "#{building.id}: #{building.address}"
+        WWFinder::Building.all.each.with_index(1) do | building, idx |
+            puts "#{idx}: #{building.address}"
         end 
     end
 
