@@ -1,0 +1,3 @@
+class WWFinder::Building 
+ 
+end

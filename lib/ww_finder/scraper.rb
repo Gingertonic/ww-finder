@@ -1,0 +1,3 @@
+class WWFinder::Scraper 
+ 
+end
