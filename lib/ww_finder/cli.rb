@@ -19,12 +19,12 @@ class WWFinder::CLI
         while input != "exit" do
             @input = gets.strip
             instructions
-            show_countries
+            show_buildings
         end
     end
 
-    def show_countries
-        puts "Here lie countries"
+    def show_buildings
+        puts "Here lie buildings"
     end
 
     def goodbye 
