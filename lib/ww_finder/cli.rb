@@ -14,7 +14,7 @@ class WWFinder::CLI
     end
 
     def welcome 
-        puts "\nHai there! Are you looking for a place to work in the UK today?".light_white.on_magenta.bold
+        puts "\nHai there! Are you looking for a place to work today?".light_white.on_magenta.bold
         puts "Hit enter to continue".green
         get_user_selection
     end
