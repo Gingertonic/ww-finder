@@ -1,5 +1,5 @@
 class WWFinder::CLI 
-    attr_accessor :input, :selected_city 
+    attr_accessor :input, :selected_country, :selected_city 
 
     def run 
         welcome
@@ -9,7 +9,7 @@ class WWFinder::CLI
 
     def app_loop 
         while @input != "exit"
-            print_cities_list
+            print_countries_list
         end
     end
 
@@ -17,6 +17,24 @@ class WWFinder::CLI
         puts "\nHai there! Are you looking for a place to work today?".light_white.on_magenta.bold
         puts "Hit enter to continue".green
         get_user_selection
+    end
+
+    def print_countries_list
+        ["UK", "USA", "Spain"].each.with_index(1) do | country, idx |
+            puts "#{idx}: #{country}"
+        end
+        get_country_selection
+    end
+
+    def get_country_selection
+        instructions
+        get_user_selection
+        valid_input(["UK", "USA", "Spain"]) ? set_country : error("country")
+    end
+
+    def set_country 
+        @selected_country = "selected city" #WWFinder::City.find(user_num_input)
+        print_cities_list
     end
 
     def print_cities_list
@@ -29,7 +47,7 @@ class WWFinder::CLI
     def get_city_selection
         instructions
         get_user_selection
-        valid_input(WWFinder::City.all) ? set_city : error
+        valid_input(WWFinder::City.all) ? set_city : error("city")
     end
 
     def set_city 
@@ -52,7 +70,7 @@ class WWFinder::CLI
     def get_building_selection
         instructions
         get_user_selection
-        valid_input(WWFinder::Building.all) ? show_building : error
+        valid_input(selected_city.buildings) ? show_building : error("building")
     end
 
     def show_building
@@ -68,19 +86,28 @@ class WWFinder::CLI
         user_num_input >= 0 && user_num_input <= data.length - 1
     end
 
-    def error 
+    def error(entry_point)
         puts "\nOops, that's not a valid option".light_white.on_red.bold
-        selected_city ? get_building_selection : get_city_selection
+        case entry_point 
+        when "country"
+            get_country_selection
+        when "city"
+            get_city_selection 
+        when "building"
+            get_building_selection
+        end
     end
 
     def what_next
-        puts "\nIf you are done, type 'exit', otherwise type 'back' to see other buildings in this city, or hit enter to see more cities".green
+        puts "\nIf you are done, type 'exit', otherwise type 'back' to see other buildings in this city, 'cities' to see other cities in this country, or hit enter to see more countries".green
         get_user_selection
     end 
 
     def get_user_selection
         @input = gets.strip
         case @input
+        when "cities"
+            print_cities_list
         when "back"
             print_buildings_list
         when "exit"
