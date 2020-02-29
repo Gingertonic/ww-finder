@@ -38,7 +38,7 @@ class WWFinder::CLI
     end
 
     def print_buildings_list
-        WWFinder::Building.all.each.with_index(1) do | building, idx |
+        @selected_city.buildings.each.with_index(1) do | building, idx |
             puts "#{idx}: #{building.address}"
         end
         get_building_selection

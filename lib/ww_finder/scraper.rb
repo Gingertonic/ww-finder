@@ -10,14 +10,14 @@ class WWFinder::Scraper
         end
     end 
 
-    def self.scrape_buildings
-        doc = Nokogiri::HTML(open("https://www.wework.com/en-GB/l/london"))
+    def self.scrape_buildings_for(city)
+        doc = Nokogiri::HTML(open("https://www.wework.com#{city.url}"))
         building_cards = doc.css(".available-buildings-container .ray-card")
         building_cards.each do | building_card |
             name = building_card.css(".building-card__name").text
             location = building_card.css(".building-card__address").text
             url = building_card.attr("href")
-            WWFinder::Building.new(name, location, url)
+            WWFinder::Building.new(name, location, url, city)
         end
     end
 

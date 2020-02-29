@@ -4,13 +4,18 @@ class WWFinder::City
 
     def initialize(name, url)
         @name = name 
-        @url = url 
+        @url = url
         @buildings = []
         save
     end
 
     def save
         @@all << self 
+    end
+
+    def buildings
+        WWFinder::Scraper.scrape_buildings_for(self) if @buildings.empty?
+        @buildings
     end
 
     def self.all

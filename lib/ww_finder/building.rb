@@ -4,12 +4,18 @@ class WWFinder::Building
 
     @@all = []
 
-    def initialize(name, address, url)
+    def initialize(name, address, url, city)
         @name = name 
         @address = address 
         @url = url
+        set_city(city)
         set_id
         save
+    end
+
+    def set_city(city)
+        @city = city 
+        city.buildings << self
     end
 
     def set_id 
