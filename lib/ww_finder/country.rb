@@ -4,7 +4,7 @@ class WWFinder::Country
 
     @@all = []
 
-    def initialize(name, url)
+    def initialize(name)
         @name = name 
         @cities = []
         save
@@ -17,6 +17,10 @@ class WWFinder::Country
 
     def self.find(input)
         all[input]
+    end
+
+    def find_city(input)
+        cities[input]
     end
 
     private

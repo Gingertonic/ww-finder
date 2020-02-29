@@ -21,7 +21,7 @@ class WWFinder::CLI
 
     def print_countries_list
         WWFinder::Country.all.each.with_index(1) do | country, idx |
-            puts "#{idx}: #{country}"
+            puts "#{idx}: #{country.name}"
         end
         get_country_selection
     end
@@ -29,16 +29,16 @@ class WWFinder::CLI
     def get_country_selection
         instructions
         get_user_selection
-        valid_input(["UK", "USA", "Spain"]) ? set_country : error("country")
+        valid_input(WWFinder::Country.all) ? set_country : error("country")
     end
 
     def set_country 
-        @selected_country = "selected city" #WWFinder::City.find(user_num_input)
+        @selected_country = WWFinder::Country.find(user_num_input)
         print_cities_list
     end
 
     def print_cities_list
-        WWFinder::City.all.each.with_index(1) do | city, idx |
+        selected_country.cities.each.with_index(1) do | city, idx |
             puts "#{idx}: #{city.name}"
         end
         get_city_selection
@@ -47,11 +47,11 @@ class WWFinder::CLI
     def get_city_selection
         instructions
         get_user_selection
-        valid_input(WWFinder::City.all) ? set_city : error("city")
+        valid_input(selected_country.cities) ? set_city : error("city")
     end
 
     def set_city 
-        @selected_city = WWFinder::City.find(user_num_input)
+        @selected_city = selected_country.find_city(user_num_input)
         print_buildings_list
     end
 

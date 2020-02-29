@@ -1,12 +1,21 @@
 class WWFinder::Scraper 
-    def self.scrape_cities
+
+    def self.scrape_countries
         doc = Nokogiri::HTML(open("https://www.wework.com/en-GB/locations"))
-        # binding.pry
-        city_lis = doc.css("ul.markets-lists__list.markets-lists__list--GB li")
+        country_divs = doc.css("div.markets-list__country")
+        country_divs.each do | country_div |
+            name = country_div.css("h3").text
+            country = WWFinder::Country.new(name)
+            extract_cities(country, country_div)
+        end
+    end 
+
+    def self.extract_cities(country, country_data)
+        city_lis = country_data.css("ul.markets-lists__list li")
         city_lis.each do | city |
             name = city.css("a").text
             url = city.css("a").attr("href")
-            WWFinder::City.new(name, url)
+            WWFinder::City.new(name, url, country)
         end
     end 
 

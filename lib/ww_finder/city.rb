@@ -1,13 +1,14 @@
 class WWFinder::City
-    attr_accessor :name, :url
+    attr_accessor :name, :url, :country
     attr_reader :buildings 
 
     @@all = []
 
-    def initialize(name, url)
+    def initialize(name, url, country)
         @name = name 
         @url = url
         @buildings = []
+        set_country(country)
         save
     end
 
@@ -29,4 +30,8 @@ class WWFinder::City
         @@all << self 
     end
     
+    def set_country(country)
+        @country = country 
+        country.cities << self
+    end
 end
