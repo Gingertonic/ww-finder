@@ -18,6 +18,10 @@ class WWFinder::City
         @@all
     end
 
+    def self.find(input)
+        all[input]
+    end
+
     def self.stub_data
         new("London", "/london")
         new("Manchester", "/manchester")

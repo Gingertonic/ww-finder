@@ -1,5 +1,5 @@
 class WWFinder::CLI 
-    attr_accessor :input
+    attr_accessor :input, :selected_city 
 
     def run 
         welcome
@@ -29,7 +29,12 @@ class WWFinder::CLI
     def get_city_selection
         instructions
         get_user_selection
-        valid_input(WWFinder::City.all) ? print_buildings_list : error
+        valid_input(WWFinder::City.all) ? set_city : error
+    end
+
+    def set_city 
+        @selected_city = WWFinder::City.find(user_num_input)
+        print_buildings_list
     end
 
     def print_buildings_list
@@ -64,7 +69,7 @@ class WWFinder::CLI
 
     def error 
         puts "\nOops, that's not a valid option".light_white.on_red.bold
-        get_building_selection
+        selected_city ? get_building_selection : get_city_selection
     end
 
     def what_next
