@@ -3,8 +3,31 @@ class WWFinder::CLI
 
     def run 
         welcome
-        print_buildings_list
-        get_building_selection
+        app_loop
+        start
+    end
+
+    def app_loop 
+        while @input != "exit"
+            print_cities_list
+            get_city_selection
+            # print_buildings_list
+            # get_building_selection
+        end
+    end
+
+    def print_cities_list 
+        @cities = ["London", "Manchester", "Birmingham"]
+        @cities.each.with_index(1) do | city, idx |
+            puts "#{idx}: #{city}"
+        end
+        get_city_selection
+    end
+
+    def get_city_selection
+        instructions
+        get_user_selection
+        valid_input(@cities) ? print_buildings_list : error
     end
 
     def welcome 
