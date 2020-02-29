@@ -13,15 +13,6 @@ class WWFinder::Building
         save
     end
 
-    def set_city(city)
-        @city = city 
-        city.buildings << self
-    end
-
-    def set_id 
-        @id = @@all.count + 1
-    end 
-
     def prepare_details
         WWFinder::Scraper.scrape_building_details(self) if !info
     end
@@ -34,6 +25,15 @@ class WWFinder::Building
     private 
     def save 
         @@all << self 
+    end 
+
+    def set_city(city)
+        @city = city 
+        city.buildings << self
+    end
+
+    def set_id 
+        @id = @@all.count + 1
     end 
  
 end

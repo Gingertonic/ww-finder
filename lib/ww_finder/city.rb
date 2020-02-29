@@ -11,10 +11,6 @@ class WWFinder::City
         save
     end
 
-    def save
-        @@all << self 
-    end
-
     def get_buildings
         WWFinder::Scraper.scrape_buildings_for(self) if buildings.empty?
     end
@@ -28,9 +24,9 @@ class WWFinder::City
         all[input]
     end
 
-    def self.stub_data
-        new("London", "/london")
-        new("Manchester", "/manchester")
-        new("Birmingham", "/birmingham")
+    private
+    def save
+        @@all << self 
     end
+    
 end
