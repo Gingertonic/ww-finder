@@ -20,7 +20,7 @@ class WWFinder::CLI
     end
 
     def print_countries_list
-        ["UK", "USA", "Spain"].each.with_index(1) do | country, idx |
+        WWFinder::Country.all.each.with_index(1) do | country, idx |
             puts "#{idx}: #{country}"
         end
         get_country_selection
