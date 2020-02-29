@@ -1,5 +1,7 @@
 class WWFinder::City
     attr_accessor :name, :url
+    attr_reader :buildings 
+
     @@all = []
 
     def initialize(name, url)
@@ -13,9 +15,8 @@ class WWFinder::City
         @@all << self 
     end
 
-    def buildings
-        WWFinder::Scraper.scrape_buildings_for(self) if @buildings.empty?
-        @buildings
+    def get_buildings
+        WWFinder::Scraper.scrape_buildings_for(self) if buildings.empty?
     end
 
     def self.all

@@ -38,6 +38,7 @@ class WWFinder::CLI
     end
 
     def print_buildings_list
+        @selected_city.get_buildings
         @selected_city.buildings.each.with_index(1) do | building, idx |
             puts "#{idx}: #{building.address}"
         end
@@ -55,7 +56,7 @@ class WWFinder::CLI
     end
 
     def show_building
-        building = WWFinder::Building.all[user_num_input]
+        building = @selected_city.buildings[user_num_input]
         building.prepare_details
         puts "\n#{building.name}".light_white.on_magenta.bold
         puts building.info
