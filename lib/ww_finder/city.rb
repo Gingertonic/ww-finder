@@ -14,7 +14,7 @@ class WWFinder::City
     end
 
     def self.all
-        stub_data if @@all.empty?
+        WWFinder::Scraper.scrape_cities if @@all.empty?
         @@all
     end
 

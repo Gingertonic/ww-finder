@@ -1,4 +1,14 @@
 class WWFinder::Scraper 
+    def self.scrape_cities
+        doc = Nokogiri::HTML(open("https://www.wework.com/en-GB/locations"))
+        # binding.pry
+        city_lis = doc.css("ul.markets-lists__list.markets-lists__list--GB li")
+        city_lis.each do | city |
+            name = city.css("a").text
+            url = city.css("a").attr("href")
+            WWFinder::City.new(name, url)
+        end
+    end 
 
     def self.scrape_buildings
         doc = Nokogiri::HTML(open("https://www.wework.com/en-GB/l/london"))
