@@ -10,10 +10,13 @@ class WWFinder::CLI
     def app_loop 
         while @input != "exit"
             print_cities_list
-            get_city_selection
-            # print_buildings_list
-            # get_building_selection
         end
+    end
+
+    def welcome 
+        puts "\nHai there! Are you looking for a place to work in the UK today?".light_white.on_magenta.bold
+        puts "Hit enter to continue".green
+        get_user_selection
     end
 
     def print_cities_list 
@@ -28,12 +31,6 @@ class WWFinder::CLI
         instructions
         get_user_selection
         valid_input(@cities) ? print_buildings_list : error
-    end
-
-    def welcome 
-        puts "\nHai there! Are you looking for a place to work in London today?".light_white.on_magenta.bold
-        puts "Hit enter to continue".green
-        get_user_selection
     end
 
     def print_buildings_list
@@ -72,14 +69,19 @@ class WWFinder::CLI
     end
 
     def what_next
-        puts "\nIf you are done, type 'exit', otherwise hit enter to continue".green
+        puts "\nIf you are done, type 'exit', otherwise type 'back' to see other buildings in this city, or hit enter to see more cities".green
         get_user_selection
-        print_buildings_list
     end 
 
     def get_user_selection
         @input = gets.strip
-        goodbye if @input == "exit"
+        case @input
+        when "back"
+            print_buildings_list
+        when "exit"
+            goodbye
+            exit
+        end
     end
 
     def user_num_input
