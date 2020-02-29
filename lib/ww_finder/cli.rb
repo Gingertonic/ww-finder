@@ -19,10 +19,9 @@ class WWFinder::CLI
         get_user_selection
     end
 
-    def print_cities_list 
-        @cities = ["London", "Manchester", "Birmingham"]
-        @cities.each.with_index(1) do | city, idx |
-            puts "#{idx}: #{city}"
+    def print_cities_list
+        WWFinder::City.all.each.with_index(1) do | city, idx |
+            puts "#{idx}: #{city.name}"
         end
         get_city_selection
     end
@@ -30,7 +29,7 @@ class WWFinder::CLI
     def get_city_selection
         instructions
         get_user_selection
-        valid_input(@cities) ? print_buildings_list : error
+        valid_input(WWFinder::City.all) ? print_buildings_list : error
     end
 
     def print_buildings_list
