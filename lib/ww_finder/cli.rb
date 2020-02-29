@@ -87,6 +87,7 @@ class WWFinder::CLI
     end
 
     def error(entry_point)
+        exit if input == "exit"
         puts "\nOops, that's not a valid option".light_white.on_red.bold
         case entry_point 
         when "country"
