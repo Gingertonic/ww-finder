@@ -2,6 +2,7 @@ require 'pry'
 require 'nokogiri'
 require 'open-uri'
 require 'colorize'
+require 'tty-table'
 
 require_relative "../lib/ww_finder/version"
 require_relative "../lib/ww_finder/cli"

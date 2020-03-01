@@ -22,7 +22,6 @@ class WWFinder::CLI
     def print_countries_list
         WWFinder::Continent.all.each { | cont | 
             puts cont.name.red
-            # binding.pry
             cont.countries.each.with_index(1) do | country, idx |
                 puts "#{idx}: #{country.name}"
             end
