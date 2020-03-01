@@ -20,10 +20,12 @@ class WWFinder::CLI
     end
 
     def print_countries_list
-        WWFinder::Country.all.each.with_index(1) do | country, idx |
-            puts "#{idx}: #{country.name}"
-        end
-        get_country_selection
+        WWFinder::Continent.all.each { | cont | puts cont.name}
+        binding.pry
+        # WWFinder::Country.all.each.with_index(1) do | country, idx |
+        #     puts "#{idx}: #{country.name}"
+        # end
+        # get_country_selection
     end
 
     def get_country_selection

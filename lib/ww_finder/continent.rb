@@ -15,14 +15,6 @@ class WWFinder::Continent
         @@all
     end
 
-    # def self.find(input)
-    #     all[input]
-    # end
-
-    # def find_city(input)
-    #     cities[input]
-    # end
-
     private
     def save
         @@all << self 

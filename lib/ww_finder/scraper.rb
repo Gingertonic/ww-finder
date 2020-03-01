@@ -3,14 +3,15 @@ class WWFinder::Scraper
         doc = Nokogiri::HTML(open("https://www.wework.com/en-GB/locations"))
         continent_divs = doc.css("div.markets-list__continent")
         continent_divs.each do | cont_div |
-            name = cont_div.css("continent__label h2").text
+            name = cont_div.css(".continent__label h2").text
             continent = WWFinder::Continent.new(name)
             extract_countries(continent, cont_div) 
         end
     end 
 
-    def self.scrape_countries(continent, cont_div)
-        cont_div.each do | country_div |
+    def self.extract_countries(continent, cont_data)
+        country_divs = cont_data.css("div.markets-list__country")
+        country_divs.each do | country_div |
             name = country_div.css("h3").text
             country = WWFinder::Country.new(name, continent)
             extract_cities(country, country_div)

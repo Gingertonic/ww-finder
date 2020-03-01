@@ -9,6 +9,7 @@ require_relative "../lib/ww_finder/scraper"
 require_relative "../lib/ww_finder/building"
 require_relative "../lib/ww_finder/city"
 require_relative "../lib/ww_finder/country"
+require_relative "../lib/ww_finder/continent"
 
 module WWFinder
   class Error < StandardError; end
