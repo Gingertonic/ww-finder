@@ -1,10 +1,10 @@
 class WWFinder::Country
-    attr_accessor :name
+    attr_accessor :name, :continent
     attr_reader :cities 
 
     @@all = []
 
-    def initialize(name)
+    def initialize(name, continent)
         @name = name 
         @cities = []
         save
@@ -26,6 +26,11 @@ class WWFinder::Country
     private
     def save
         @@all << self 
+    end
+
+    def set_continent(cont)
+        @continent = cont 
+        continent.cities << self
     end
     
 end

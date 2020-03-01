@@ -12,7 +12,7 @@ class WWFinder::Scraper
     def self.scrape_countries(continent, cont_div)
         cont_div.each do | country_div |
             name = country_div.css("h3").text
-            country = WWFinder::Country.new(name)
+            country = WWFinder::Country.new(name, continent)
             extract_cities(country, country_div)
         end
     end 
