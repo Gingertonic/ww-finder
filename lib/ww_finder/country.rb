@@ -7,6 +7,7 @@ class WWFinder::Country
     def initialize(name, continent)
         @name = name 
         @cities = []
+        set_continent(continent)
         save
     end
 
@@ -30,7 +31,7 @@ class WWFinder::Country
 
     def set_continent(cont)
         @continent = cont 
-        continent.cities << self
+        continent.countries << self
     end
     
 end
