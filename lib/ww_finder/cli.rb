@@ -8,6 +8,7 @@ class WWFinder::CLI
     end
 
     def app_loop 
+        print "\e[8;50;150t"
         while @input != "exit"
             print_countries_list
         end
@@ -20,14 +21,31 @@ class WWFinder::CLI
     end
 
     def print_countries_list
-        WWFinder::Continent.all.each { | cont | 
-            puts cont.name.red
-            cont.countries.each.with_index(1) do | country, idx |
-                puts "#{idx}: #{country.name}"
-            end
-        }
+        table_data = []
+        WWFinder::Continent.all.each.with_index do | cont, i | 
+            table_data << {"#{(i + 1).to_s.light_white.bold}. #{cont.name.light_white.on_magenta}": WWFinder::Continent.all.map.with_index(1){| cont, idx | cont.countries[i] ? "#{(i + 1).to_s.magenta}: #{cont.countries[i].name}" : nil }}
+        end  
+        table = TTY::Table.new(table_data)
+        puts table.render(:ascii)
         get_country_selection
     end
+
+    # def tp
+    #     terminal_width = `tput cols`.to_i
+    #     cols = WWFinder::Continent.all.count + 1 # Label column
+    #     col_width = (terminal_width / cols) - 1 # Column spacing
+      
+    #     WWFinder::Continent.all.map do |cont|
+    #       cells = cont.countries.map.with_index(1){ |c, i| "#{i}: #{c.name}" }
+    #       cells.unshift(cont.name.red)
+      
+    #       puts cells.map{ |cell| cell.to_s.ljust(col_width) }.join ' '
+    #     #   binding.pry
+    #     end
+      
+    #     nil
+    #   end
+      
 
     def get_country_selection
         instructions
