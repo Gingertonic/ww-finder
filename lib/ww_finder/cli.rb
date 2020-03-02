@@ -1,5 +1,5 @@
 class WWFinder::CLI 
-    attr_accessor :input, :selected_country, :selected_city 
+    attr_accessor :input, :selected_continent, :selected_country, :selected_city 
 
     def run 
         welcome
@@ -8,10 +8,13 @@ class WWFinder::CLI
     end
 
     def app_loop 
-        print "\e[8;50;150t"
         while @input != "exit"
             print_countries_list
         end
+    end
+
+    def resize_screen
+        print "\e[8;50;150t"
     end
 
     def welcome 
@@ -21,40 +24,34 @@ class WWFinder::CLI
     end
 
     def print_countries_list
+        resize_screen
         table_data = []
-        WWFinder::Continent.all.each.with_index do | cont, i | 
-            table_data << {"#{(i + 1).to_s.light_white.bold}. #{cont.name.light_white.on_magenta}": WWFinder::Continent.all.map.with_index(1){| cont, idx | cont.countries[i] ? "#{(i + 1).to_s.magenta}: #{cont.countries[i].name}" : nil }}
+        WWFinder::Continent.all.each.with_index(1) do | cont, i | 
+            table_data << {"#{i.to_s.light_white.bold}. #{cont.name.light_white.on_magenta}": WWFinder::Continent.all.map{| cont | cont.countries[i - 1] ? "#{i.to_s.magenta}: #{cont.countries[i - 1].name}" : nil }}
         end  
         table = TTY::Table.new(table_data)
         puts table.render(:ascii)
         get_country_selection
     end
 
-    # def tp
-    #     terminal_width = `tput cols`.to_i
-    #     cols = WWFinder::Continent.all.count + 1 # Label column
-    #     col_width = (terminal_width / cols) - 1 # Column spacing
-      
-    #     WWFinder::Continent.all.map do |cont|
-    #       cells = cont.countries.map.with_index(1){ |c, i| "#{i}: #{c.name}" }
-    #       cells.unshift(cont.name.red)
-      
-    #       puts cells.map{ |cell| cell.to_s.ljust(col_width) }.join ' '
-    #     #   binding.pry
-    #     end
-      
-    #     nil
-    #   end
-      
-
     def get_country_selection
-        instructions
+        puts "Enter a continent number and country number eg '3, 2'".light_white.on_green
         get_user_selection
-        valid_input(WWFinder::Country.all) ? set_country : error("country")
+        cc_input = input.split(',')
+        @input = cc_input[0]
+        valid_input(WWFinder::Continent.all) ? set_continent : error("continent")
+        @input = cc_input[1]
+        binding.pry
+        valid_input(selected_continent.countries) ? set_country : error("country")
     end
 
-    def set_country 
-        @selected_country = WWFinder::Country.find(user_num_input)
+    def set_continent
+        @selected_continent = WWFinder::Continent.find(user_num_input)
+    end
+
+    def set_country
+        @selected_country = selected_continent.find_country(user_num_input)
+        binding.pry
         print_cities_list
     end
 
@@ -109,8 +106,10 @@ class WWFinder::CLI
 
     def error(entry_point)
         exit if input == "exit"
-        puts "\nOops, that's not a valid option".light_white.on_red.bold
+        puts "\nOops, that's not a valid #{entry_point} option".light_white.on_red.bold
         case entry_point 
+        when "continent"
+            get_country_selection
         when "country"
             get_country_selection
         when "city"

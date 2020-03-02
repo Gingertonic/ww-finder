@@ -15,6 +15,14 @@ class WWFinder::Continent
         @@all
     end
 
+    def self.find(input)
+        all[input]
+    end
+
+    def find_country(input)
+        countries[input]
+    end
+
     private
     def save
         @@all << self 
