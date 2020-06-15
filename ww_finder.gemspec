@@ -9,10 +9,10 @@ Gem::Specification.new do |spec|
   spec.email         = ["bethmschofield@gmail.com"]
 
   spec.summary       = %q{Find a Wework}
-  spec.description   = %q{Find a Wework}
+  spec.description   = %q{Find a Wework anywhere in the world! Search by continent, country and city.}
   spec.homepage      = "https://github.com/Gingertonic/ww-finder"
 
-  spec.metadata["allowed_push_host"] = "https://rubygems.org"
+  spec.metadata["allowed_push_host"] = "https://rubygems.org/gem/ww_finder"
 
   spec.metadata["homepage_uri"] = spec.homepage
   spec.metadata["source_code_uri"] = "https://github.com/Gingertonic/ww-finder"
