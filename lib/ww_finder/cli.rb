@@ -41,7 +41,6 @@ class WWFinder::CLI
         @input = cc_input[0]
         valid_input(WWFinder::Continent.all) ? set_continent : error("continent")
         @input = cc_input[1]
-        binding.pry
         valid_input(selected_continent.countries) ? set_country : error("country")
     end
 
@@ -51,7 +50,6 @@ class WWFinder::CLI
 
     def set_country
         @selected_country = selected_continent.find_country(user_num_input)
-        binding.pry
         print_cities_list
     end
 
